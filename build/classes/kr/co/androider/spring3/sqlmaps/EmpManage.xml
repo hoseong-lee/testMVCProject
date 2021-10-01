@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="EmpManage">
+
+	<!-- 사용자 정보 빈 -->
+	<typeAlias alias="oracleEmpBean" type="kr.co.androider.spring3.jdbc.bean.OracleEmpBean"/>
+	<!-- 컬럼은 Query 작성시에 원컬럼명을 작성하고 
+	아래와 같이 카멜표기를 위한 ResultMap을 선언하여 매핑 하도록 한다. -->
+	<resultMap id="empResult" class="oracleEmpBean">
+		<result property="empNo" column="EMPNO" />
+		<result property="eName" column="ENAME" />
+		<result property="job" column="JOB" />
+		<result property="mgr" column="MGR" />
+		<result property="hiredate" column="HIREDATE" />
+		<result property="sal" column="SAL" />
+		<result property="comm" column="COMM" />
+		<result property="deptNo" column="DEPTNO" />
+	</resultMap>
+
+	
+	<!-- EMP 테이블 정보를 조회 합니다.  -->
+	
+	<select id="EmpManage.getRowEmp" resultMap="empResult">
+		select EMPNO
+		     , ENAME
+		     , JOB
+		     , NVL(MGR, 0) MGR
+		     , HIREDATE
+		     , SAL
+		     , NVL(COMM, 0) COMM
+		     , DEPTNO
+		 from emp
+        where empno = 7839
+	</select>	
+	
+	
+	<!-- EMP 테이블 정보를 조회 합니다.  -->
+	<select id="EmpManage.getRowEmpByNo" resultMap="empResult">
+		select EMPNO
+		     , ENAME
+		     , JOB
+		     , NVL(MGR, 0) MGR
+		     , HIREDATE
+		     , SAL
+		     , NVL(COMM, 0) COMM
+		     , DEPTNO
+		 from emp
+        where empno = #empNo#
+	</select>	
+	
+	<!-- EMP 테이블에 Job 이 CLERK 인 데이터를 조회 합니다.  -->
+	<select id="EmpManage.getListEmpJobType" resultMap="empResult">
+		select EMPNO
+		     , ENAME
+		     , JOB
+		     , NVL(MGR, 0) MGR
+		     , HIREDATE
+		     , SAL
+		     , NVL(COMM, 0) COMM
+		     , DEPTNO
+		 from emp
+        where job = #reqJob#
+	</select>	
+	
+	<!-- EMP 테이블에 Job 이 CLERK 인 데이터를 조회 합니다.  -->
+	<insert id="EmpManage.insertEmp" parameterClass="oracleEmpBean">
+		insert into emp (
+			   EMPNO
+		     , ENAME
+		     , JOB
+		     , MGR
+		     , HIREDATE
+		     , SAL 
+		     , COMM
+		     , DEPTNO
+		) values {
+			 #empNo#,
+			 #eName#,
+			 #job#,
+			 #mgr#,
+			 #hiredate#,
+			 #sal#,
+			 #comm#,
+			 #deptNo#
+		)
+		
+	</insert>	
+	
+</sqlMap>
