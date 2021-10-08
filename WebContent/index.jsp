@@ -8,7 +8,7 @@
 <title>Spring 3.0 MVC Series: Index - ViralPatel.net</title>
 </head>
 <body>
-<a href="hello.do">20211008 수정 후 배포 테스트 - test</a><BR />
+<a href="hello.do">20211008 수정 후 배포 테스트 - test222</a><BR />
 <a href="contacts.do">Hello</a><BR />
 <a href="mvcModel.do">수정</a><BR />
 
